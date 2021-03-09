@@ -9,7 +9,9 @@
 //Your class will be called like this: MyCalendar cal = new MyCalendar(); MyCalendar.book(start, end)
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 // Sol 1: ArrayList
 // When there is a new event, iterate the arraylist and see if there is an interval has conflict with new interval:
@@ -32,3 +34,34 @@ class MyCalendar {
         return true;
     }
 }
+
+    Queue<String> q = new LinkedList();
+    q.offer(source);
+            HashSet<String> visited = new HashSet();
+        visited.add(source);
+        int count = 0;
+        while(!q.isEmpty()) {
+        int size = q.size();
+        for(int i = 0; i < size; i++) {
+        String cur = q.poll();
+        if(cur.equals(target)) {
+        return count;
+        }
+        char [] arr = cur.toCharArray();
+        for(int j = 0; j < cur.length(); j++) {
+        char ch = arr[j];
+        for(char k = 'a'; k <= 'z'; k++) {
+        arr[j] = k;
+        String temp = new String(arr);
+        if(hs.contains(temp) && !visited.contains(temp)) {
+        q.offer(temp);
+        visited.add(temp);
+        }
+        }
+        arr[j] = ch;
+        }
+        }
+        count++;
+        }
+
+        return -1;
